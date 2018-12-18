@@ -1,0 +1,36 @@
+version: '3'
+services:
+  css:
+    image: foxylion/steam-css:latest
+    ports:
+      - 1200:1200
+      - 27015:27015
+      - 27015:27015/udp
+      - 27005:27005/udp
+      - 27020:27020/udp
+      - 26901:26901/udp
+    environment:
+      RCON_PASSWORD: <<password>>
+      CSS_PASSWORD: <<password>>
+      CSS_HOSTNAME: <<servername>>
+    volumes:
+      - /root/mapcycle.txt:/home/steam/css/cstrike/cfg/mapcycle.txt
+      - /root/admins_simple.ini:/home/steam/css/cstrike/addons/sourcemod/configs/admins_simple.ini
+      - /root/server.cfg:/home/steam/css/cstrike/cfg/my-server.cfg
+      - /root/css-htdocs:/home/steam/htdocs
+  nginx:
+    image: nginx:1.15
+    ports:
+      - 27016:80
+    volumes:
+      - /root/css-htdocs:/usr/share/nginx/html:ro
+  ts3:
+    image: teamspeak:3.5
+    ports:
+      - 10011:10011
+      - 30033:30033
+      - 9987:9987/udp
+    environment:
+      TS3SERVER_LICENSE: accept
+    volumes:
+      - /root/ts3-data:/var/ts3server/
