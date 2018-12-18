@@ -1,4 +1,4 @@
-# CSS "itd:x-mas coutner"
+# CSS and TS3 with docker-compose
 
 - Download & Install docker
 - Download & Install docker-compose
